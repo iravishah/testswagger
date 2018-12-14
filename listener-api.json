@@ -13,7 +13,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "localhost:8891",
+  "host": "ab4b92de.ngrok.io",
   "basePath": "/v1",
   "tags": [
     {
