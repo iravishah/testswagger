@@ -1,0 +1,222 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a listener service api calls. You can use `test` as admin key",
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "termsOfService": "",
+    "contact": {
+      "email": "support@built.io"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8891",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "listener",
+      "description": "real time connection"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/ping": {
+      "get": {
+        "tags": [
+          "ping"
+        ],
+        "summary": "To check service is up and running",
+        "description": "",
+        "operationId": "getPing",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "message: OK code: 200",
+            "schema": {
+              "$ref": "#/definitions/Ping"
+            }
+          }
+        }
+      }
+    },
+    "/processors": {
+      "get": {
+        "tags": [
+          "redis operations"
+        ],
+        "summary": "List redis processors",
+        "description": "List all the running processors details",
+        "operationId": "getProcessors",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "error: Admin Authentication Failed code: 101"
+          }
+        },
+        "security": [
+          {
+            "admin_key": []
+          }
+        ]
+      }
+    },
+    "/processors/count": {
+      "get": {
+        "tags": [
+          "redis operations"
+        ],
+        "summary": "List redis processor count",
+        "description": "List all the running processors count and value",
+        "operationId": "getProcessorsCount",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "error: Admin Authentication Failed code: 101"
+          }
+        },
+        "security": [
+          {
+            "admin_key": []
+          }
+        ]
+      }
+    },
+    "/processors/heartbeat": {
+      "get": {
+        "tags": [
+          "redis operations"
+        ],
+        "summary": "List redis heartbeat count",
+        "description": "List all the running processors heartbeat and value",
+        "operationId": "getProcessorsHeartbeat",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "error: Admin Authentication Failed code: 101"
+          }
+        },
+        "security": [
+          {
+            "admin_key": []
+          }
+        ]
+      }
+    },
+    "/processors/count/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "provider the processor id which you want to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "redis operations"
+        ],
+        "summary": "Remove processor in count hash",
+        "description": "To remove specific entry from the processor hash count",
+        "operationId": "removeProcessorCount",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "number",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "error: Admin Authentication Failed code: 101"
+          }
+        },
+        "security": [
+          {
+            "admin_key": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "admin_key": {
+      "type": "apiKey",
+      "name": "admin_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Ping": {
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "number",
+          "format": "int64"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
